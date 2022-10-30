@@ -1,6 +1,7 @@
 package mentoss.menmeet.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.signup.SignUpCheckIdDTO;
 import mentoss.menmeet.DTO.signup.SignUpCheckNameDTO;
 import mentoss.menmeet.DTO.signup.SignUpConfirmDTO;
@@ -12,25 +13,29 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class SignUpServiceImpl implements SignUpService {
 	private final UserRepository userRepository;
 
+
 	//회원등록 메서드
 	@Override
 	public SignUpConfirmDTO signUp(User targetUser) {
+		log.info("called : SignUpServiceImpl.signUp");
+
 		SignUpConfirmDTO scDTO = new SignUpConfirmDTO();//리턴해줄
-		userRepository.saveUser(targetUser);
-		Optional<User> signedUserOptional = userRepository.findUserById(targetUser.getUserId());
-		if (signedUserOptional.isPresent()){
-			User signedUser = signedUserOptional.get();
-			scDTO.setSignUpState(true);
-			scDTO.setUserId(signedUser.getUserId());
-		}else {
+		Optional<User> checkIdUserOptional = userRepository.findUserById(targetUser.getUserId());
+		Optional<User> checkNameUserOptional = userRepository.findUserByName(targetUser.getUserId());
+
+		if (checkIdUserOptional.isPresent()||checkNameUserOptional.isPresent()){//DB에 값이 있으면
 			scDTO.setSignUpState(false);
+			scDTO.setUserId(targetUser.getUserId());
+		}else {
+			userRepository.saveUser(targetUser);
+			scDTO.setSignUpState(true);
 			scDTO.setUserId(targetUser.getUserId());
 		}
 		return scDTO;
@@ -39,6 +44,8 @@ public class SignUpServiceImpl implements SignUpService {
 	//회원가입시 Id 중복 확인
 	@Override
 	public SignUpCheckIdDTO checkId(String targetId) {
+		log.info("called : SignUpServiceImpl.checkId");
+
 		SignUpCheckIdDTO signUpCheckIdDTO = new SignUpCheckIdDTO();
 		signUpCheckIdDTO.setTargetId(targetId);
 
@@ -54,6 +61,8 @@ public class SignUpServiceImpl implements SignUpService {
 	//회원가입시 Name 중복 확인
 	@Override
 	public SignUpCheckNameDTO checkName(String targetName) {
+		log.info("called : SignUpServiceImpl.checkName");
+
 		SignUpCheckNameDTO signUpCheckNameDTO = new SignUpCheckNameDTO();
 		signUpCheckNameDTO.setTargetName(targetName);
 
@@ -67,6 +76,7 @@ public class SignUpServiceImpl implements SignUpService {
 	}
 	@Override
 	public List<User> showUserList(){
+		log.info("called : SignUpServiceImpl.showUserList");
 		return userRepository.findUserAll();
 	}
 }
