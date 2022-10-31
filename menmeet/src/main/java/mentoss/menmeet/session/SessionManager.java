@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SessionManager {
 	//세션이름(유저ID[UUID]),
 	private Map<String, Object> sessionStore = new ConcurrentHashMap<>();
-	public static final String SESSION_COOKIE_NAME = "mySessionId";
+	public static final String SESSION_COOKIE_NAME = "menmeetSessionId";//서비스에 사용할 쿠키 이름
 
 	//세션의 3가지 기능 1. sessionId생성 / 2. 세션 저장소에 값저장 / 3. sessionId로 응답 쿠키를 생성전달.
 
