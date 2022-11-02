@@ -12,7 +12,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginFilter implements Filter {
 	//로그인 요구에서 제외할 URI
-	private static final String[] whitelist = {"/", "/members/add", "/login", "/css/*"};
+	private static final String[] whitelist = {"/", "/signup**", "/login", "/userList*"};
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -23,16 +23,14 @@ public class LoginFilter implements Filter {
 
 		try{
 			log.info("인증 체크 필터 시작{}", requestURI);
-
-			if(isLoginCheckPath(requestURI)){
-				log.info("인체크 로직 실행{}", requestURI);
+			if(isLoginCheckPath(requestURI)){//화이트리스트의 uri와 다른 uri면
+				log.info("인증 체크 로직 실행{}", requestURI);//인증 체크
 				HttpSession session = httpServletRequest.getSession(false);
-				if(session==null||session.getAttribute("menmeetSessionId")==null){
+				if(session==null||session.getAttribute("MenMeetSession")==null){
 					log.info("미인증 사용자 요청 {}",requestURI);
-					httpServletResponse.sendRedirect("/login?redirectURL="+requestURI);
+					httpServletResponse.sendRedirect("https://www.youtube.com");
 					return;
-
-				}
+				}//end of if session==null
 			}
 			chain.doFilter(request, response);
 		}catch (Exception e){

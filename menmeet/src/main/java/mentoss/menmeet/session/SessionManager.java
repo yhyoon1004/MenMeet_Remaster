@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.geom.CubicCurve2D;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
@@ -15,13 +14,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SessionManager {
 	//세션이름(유저ID[UUID]),
 	private Map<String, Object> sessionStore = new ConcurrentHashMap<>();
-	public static final String SESSION_COOKIE_NAME = "menmeetSessionId";//서비스에 사용할 쿠키 이름
+	public static final String SESSION_COOKIE_NAME = "MenMeetSession";//서비스에 사용할 쿠키 이름
 
 	//세션의 3가지 기능 1. sessionId생성 / 2. 세션 저장소에 값저장 / 3. sessionId로 응답 쿠키를 생성전달.
 
 
+	public Map<String, Object> getSessionStore() {
+		return sessionStore;
+	}
+
 	//세션에 쿠키정보생성하는 메서드  //로그인 했을 때
-	public void createUserCookieSession(Object value, HttpServletResponse response){
+	public void createUserCookieAndPutSession(Object value, HttpServletResponse response){
 		//UUID로 랜덤 센션값 생성
 		String sessionId = UUID.randomUUID().toString();
 

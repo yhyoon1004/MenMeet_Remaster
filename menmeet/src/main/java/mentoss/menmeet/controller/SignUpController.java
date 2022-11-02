@@ -16,13 +16,13 @@ public class SignUpController {
 	private final SignUpService signUpService;
 
 	//회원가입시 Id 중복 확인
-	@GetMapping("/checkDuplicateId")
+	@GetMapping("/signup/checkDuplicateId")
 	public SignUpCheckIdDTO checkUserId(@RequestParam String userId) {
 		return signUpService.checkId(userId);
 	}
 
 	//회원가입시 Name 중복 확인
-	@GetMapping("/checkDuplicateName")
+	@GetMapping("/signup/checkDuplicateName")
 	public SignUpCheckNameDTO checkUserName(@RequestParam String userName) {
 		return signUpService.checkName(userName);
 	}
