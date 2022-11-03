@@ -27,10 +27,10 @@ public class LoginFilter implements Filter {
 				log.info("인증 체크 로직 실행{}", requestURI);//인증 체크
 				HttpSession session = httpServletRequest.getSession(false);
 				if(session==null||session.getAttribute("MenMeetSession")==null){
-					log.info("미인증 사용자 요청 {}",requestURI);
+					log.info("미인증 사용자 요청 {}", requestURI);
 					httpServletResponse.sendRedirect("https://www.youtube.com");
 					return;
-				}//end of if session==null
+				}//end of if session == null
 			}
 			chain.doFilter(request, response);
 		}catch (Exception e){

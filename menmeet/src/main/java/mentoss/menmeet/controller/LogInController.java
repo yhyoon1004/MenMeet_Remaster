@@ -14,6 +14,8 @@ public class LogInController {
 	private final LoginService loginService;
 	@PostMapping(value = "/login", consumes = "application/json")
 	public LoginStateDTO login(@RequestBody LoginFormDTO user){
+
+
 		return loginService.confirmLogin(user);
 	}
 
