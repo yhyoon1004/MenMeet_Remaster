@@ -12,7 +12,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginFilter implements Filter {
 	//로그인 요구에서 제외할 URI
-	private static final String[] whitelist = {"/", "/signup**", "/login", "/userList*"};
+	private static final String[] checkRequestList = {"/post**"};
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -21,30 +21,32 @@ public class LoginFilter implements Filter {
 
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-		try{
-			log.info("인증 체크 필터 시작{}", requestURI);
-			if(isLoginCheckPath(requestURI)){//화이트리스트의 uri와 다른 uri면
-				log.info("인증 체크 로직 실행{}", requestURI);//인증 체크
+		try {
+			if (isLoginCheckPath(requestURI)) {//화이트리스트의 uri와 다른 uri면
+				log.info("로그인 인증 필터 동작{}", requestURI);
 				HttpSession session = httpServletRequest.getSession(false);
-				if(session==null||session.getAttribute("MenMeetSession")==null){
-					log.info("미인증 사용자 요청 {}", requestURI);
-					httpServletResponse.sendRedirect("https://www.youtube.com");
+				if (session == null || session.getAttribute("MenMeetSession") == null) {
+
+					log.info("미인증 사용자, 요청 거부  {}", requestURI);
+					httpServletResponse.setContentType("text/html; charset=UTF-8");
+					httpServletResponse.getWriter().print("<script>alert('로그인 후 이용해주세요.'); history.back();</script>");
 					return;
 				}//end of if session == null
+				log.info("로그인 인증완료 요청 동작 {}",requestURI);
 			}
 			chain.doFilter(request, response);
-		}catch (Exception e){
+		} catch (Exception e) {
 			throw e;
-		}finally {
-			log.info("인증 체크 필터 종료 {}", requestURI);
+		} finally {
+			log.info("인증 필터 종료 {}", requestURI);
 		}
 	}
-/*
-* 화이트 리스트의 경우 인증 체크X
-* */
+	/*
+	 * 화이트 리스트의 경우 인증 체크X
+	 * */
 
-	private boolean isLoginCheckPath(String requestURI){
-		return !PatternMatchUtils.simpleMatch(whitelist, requestURI);
+	private boolean isLoginCheckPath(String requestURI) {
+		return PatternMatchUtils.simpleMatch(checkRequestList, requestURI);
 	}
 
 }//end of class

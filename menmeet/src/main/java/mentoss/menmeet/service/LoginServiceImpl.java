@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService {
 				HttpSession session = httpServletRequest.getSession();
 				session.setAttribute("MenMeetSession",searchedUser);
 				User menMeetSession = (User) session.getAttribute("MenMeetSession");
-				log.info("멘밋 세션 값 : ID : [{}] PWD : [{}]",menMeetSession.getUserId(),menMeetSession.getUserPassword());
+				log.info("사용자 로그인 정보 : ID : [{}] 닉네임 : [{}]",menMeetSession.getUserId(),menMeetSession.getUserName());
 
 			}else {//비밀 번호가 일치하지 않으면 실패 리턴
 				lsDTO.setIsLoginConfirmed(false);
