@@ -10,4 +10,4 @@
  - 메타버스 클라이언트 다운로드
  - 멘토링 알림
  ## 주의 사항
- 본 repostory는 MenMeet Back-End 자원입니다.
+ 현재 업로드 되는 본 repostory는 MenMeet Back-End 자원입니다.
