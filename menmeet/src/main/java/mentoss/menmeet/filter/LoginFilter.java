@@ -32,7 +32,7 @@ public class LoginFilter implements Filter {
 					httpServletResponse.getWriter().print("<script>alert('로그인 후 이용해주세요.'); history.back();</script>");
 					return;
 				}//end of if session == null
-				log.info("로그인 인증완료 요청 동작 {}",requestURI);
+				log.info("로그인 인증완료 요청 동작 {}", requestURI);
 			}
 			chain.doFilter(request, response);
 		} catch (Exception e) {
@@ -41,9 +41,6 @@ public class LoginFilter implements Filter {
 			log.info("인증 필터 종료 {}", requestURI);
 		}
 	}
-	/*
-	 * 화이트 리스트의 경우 인증 체크X
-	 * */
 
 	private boolean isLoginCheckPath(String requestURI) {
 		return PatternMatchUtils.simpleMatch(checkRequestList, requestURI);

@@ -10,8 +10,8 @@ import javax.servlet.Filter;
 
 @Configuration
 public class FilterConfig {
-	@Bean
-	public FilterRegistrationBean logFilter(){
+//	@Bean
+	public FilterRegistrationBean logFilter() {
 		//서블릿 필터를 등록하기 위한 필터등록빈
 		FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
 		filterFilterRegistrationBean.setFilter(new LogFilter());
@@ -19,8 +19,9 @@ public class FilterConfig {
 		filterFilterRegistrationBean.addUrlPatterns("/*");//어떤 URL패턴으로 적용할 것인지
 		return filterFilterRegistrationBean;
 	}
+
 	@Bean
-	public FilterRegistrationBean loginCheckFilter(){
+	public FilterRegistrationBean loginCheckFilter() {
 		//서블릿 필터를 등록하기 위한 필터등록빈
 		FilterRegistrationBean<Filter> filterFilterRegistrationBean = new FilterRegistrationBean<>();
 		filterFilterRegistrationBean.setFilter(new LoginFilter());
