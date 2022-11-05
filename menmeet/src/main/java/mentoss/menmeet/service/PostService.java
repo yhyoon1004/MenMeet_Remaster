@@ -1,5 +1,6 @@
 package mentoss.menmeet.service;
 
+import mentoss.menmeet.DTO.post.PostContentDTO;
 import mentoss.menmeet.DTO.post.PostIndexDTO;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface PostService {
 	 *****전체 멘토링 게시물 조회**********
 	 * pageNum = 요청할 페이지
 	 */
-	public abstract List<PostIndexDTO> showAllPostList(int pageNum);
+	List<PostIndexDTO> showAllPostList(int pageNum);
 
 	/*
 	 **********카테고리별 게시물 조회**********
@@ -22,7 +23,7 @@ public interface PostService {
 	 * mentor = 0-멘티/1-멘토
 	 * pageNum = 요청할 페이지
 	 */
-	public abstract List<PostIndexDTO> showCategoryPostList(int category, int mentor, int pageNum);
+	List<PostIndexDTO> showCategoryPostList(int category, int mentor, int pageNum);
 
 	/*
 	 **********키워드 검색 게시물 조회**********
@@ -30,7 +31,10 @@ public interface PostService {
 	 * mentor = 0-멘티/1-멘토
 	 * pageNum = 요청할 페이지
 	 */
-	public abstract List<PostIndexDTO> showSearchedPostList(String keyword, int pageNum);
+	List<PostIndexDTO> showSearchedPostList(String keyword, int pageNum);
 
-
+	/*
+	 **********게시물 하나 보기**********
+	 */
+	PostContentDTO showPostContent(int postNum);
 }

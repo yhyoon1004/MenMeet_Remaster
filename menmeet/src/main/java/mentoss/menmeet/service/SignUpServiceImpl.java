@@ -20,7 +20,6 @@ import java.util.Optional;
 public class SignUpServiceImpl implements SignUpService {
 	private final UserRepository userRepository;
 
-
 	//회원등록 메서드
 	@Override
 	public SignUpConfirmDTO signUp(User targetUser) {
@@ -30,10 +29,10 @@ public class SignUpServiceImpl implements SignUpService {
 		Optional<User> checkIdUserOptional = userRepository.findUserById(targetUser.getUserId());
 		Optional<User> checkNameUserOptional = userRepository.findUserByName(targetUser.getUserId());
 
-		if (checkIdUserOptional.isPresent()||checkNameUserOptional.isPresent()){//DB에 값이 있으면
+		if (checkIdUserOptional.isPresent() || checkNameUserOptional.isPresent()) {//DB에 값이 있으면
 			scDTO.setSignUpState(false);
 			scDTO.setUserId(targetUser.getUserId());
-		}else {
+		} else {
 			userRepository.saveUser(targetUser);
 			scDTO.setSignUpState(true);
 			scDTO.setUserId(targetUser.getUserId());
@@ -50,9 +49,9 @@ public class SignUpServiceImpl implements SignUpService {
 		signUpCheckIdDTO.setTargetId(targetId);
 
 		Optional<User> checkUserIdOptional = userRepository.findUserById(targetId);
-		if(checkUserIdOptional.isPresent()){
+		if (checkUserIdOptional.isPresent()) {
 			signUpCheckIdDTO.setIsDuplicated(true);
-		}else {
+		} else {
 			signUpCheckIdDTO.setIsDuplicated(false);
 		}
 		return signUpCheckIdDTO;
@@ -67,15 +66,16 @@ public class SignUpServiceImpl implements SignUpService {
 		signUpCheckNameDTO.setTargetName(targetName);
 
 		Optional<User> checkUserNameOptional = userRepository.findUserByName(targetName);
-		if(checkUserNameOptional.isPresent()){
+		if (checkUserNameOptional.isPresent()) {
 			signUpCheckNameDTO.setIsDuplicated(true);
-		}else {
+		} else {
 			signUpCheckNameDTO.setIsDuplicated(false);
 		}
 		return signUpCheckNameDTO;
 	}
+
 	@Override
-	public List<User> showUserList(){
+	public List<User> showUserList() {
 		log.info("called : SignUpServiceImpl.showUserList");
 		return userRepository.findUserAll();
 	}

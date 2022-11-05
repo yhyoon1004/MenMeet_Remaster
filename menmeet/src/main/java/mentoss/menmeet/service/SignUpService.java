@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface SignUpService {
 
-	public SignUpConfirmDTO signUp(User targetUser);
-	public SignUpCheckIdDTO checkId(String targetId);
-	public SignUpCheckNameDTO checkName(String targetName);
+	SignUpConfirmDTO signUp(User targetUser);
 
-	public List<User> showUserList();
+	SignUpCheckIdDTO checkId(String targetId);
+
+	SignUpCheckNameDTO checkName(String targetName);
+
+	List<User> showUserList();
 }

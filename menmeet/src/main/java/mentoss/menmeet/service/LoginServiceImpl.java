@@ -9,7 +9,6 @@ import mentoss.menmeet.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -19,7 +18,6 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 	private final UserRepository userRepository;
 	private final HttpServletRequest httpServletRequest;
-	private final HttpServletResponse httpServletResponse;
 
 	@Override
 	public LoginStateDTO confirmLogin(LoginFormDTO targetUser) {

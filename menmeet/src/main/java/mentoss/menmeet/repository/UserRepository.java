@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-	public void saveUser(User saveUser);
+	void saveUser(User saveUser);
 
-	public Optional<User> findUserById(String targetUserId);
+	Optional<User> findUserById(String targetUserId);
 
-	public Optional<User> findUserByName(String targetUserName);
-	public List<User> findUserAll();
+	Optional<User> findUserByName(String targetUserName);
 
-	public void deleteUser(String deleteUser);
+	List<User> findUserAll();
+
+	void deleteUser(String deleteUser);
 }
