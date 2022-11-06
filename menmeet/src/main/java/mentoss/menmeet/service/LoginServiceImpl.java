@@ -6,6 +6,7 @@ import mentoss.menmeet.DTO.login.LoginFormDTO;
 import mentoss.menmeet.DTO.login.LoginStateDTO;
 import mentoss.menmeet.domain.User;
 import mentoss.menmeet.repository.UserRepository;
+import mentoss.menmeet.session.MenMeetSessionCont;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 	private final UserRepository userRepository;
 	private final HttpServletRequest httpServletRequest;
+
 
 	@Override
 	public LoginStateDTO confirmLogin(LoginFormDTO targetUser) {
@@ -33,12 +35,16 @@ public class LoginServiceImpl implements LoginService {
 			log.info("searchUser = [{}][{}]", searchedUser.getUserId(), searchedUser.getUserPassword());
 			if (searchedUser.getUserPassword()// 가져온 유저의 비밀번호가
 					.equals(targetUser.getUserPassword())) {//입력한 유저의 비밀번호와 일치하면
-				lsDTO.setIsLoginConfirmed(true);//같으면 로그인여부 DTO에 true로 설정
 
 				HttpSession session = httpServletRequest.getSession();
-				session.setAttribute("MenMeetSession", searchedUser);
-				User menMeetSession = (User) session.getAttribute("MenMeetSession");
-				log.info("사용자 로그인 정보 : ID : [{}] 닉네임 : [{}]", menMeetSession.getUserId(), menMeetSession.getUserName());
+				session.setAttribute(MenMeetSessionCont.LOGIN_SESSION, searchedUser);
+
+				User menmeetSession = (User) session.getAttribute(MenMeetSessionCont.LOGIN_SESSION);
+
+				log.info("사용자 로그인 정보 : ID : [{}] 닉네임 : [{}]", menmeetSession.getUserId(), menmeetSession.getUserName());
+
+				lsDTO.setIsLoginConfirmed(true);//같으면 로그인여부 DTO에 true로 설정
+				lsDTO.setUserName(menmeetSession.getUserName());
 
 			} else {//비밀 번호가 일치하지 않으면 실패 리턴
 				lsDTO.setIsLoginConfirmed(false);

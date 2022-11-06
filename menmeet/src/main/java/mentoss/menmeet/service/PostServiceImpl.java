@@ -2,9 +2,11 @@ package mentoss.menmeet.service;
 
 import mentoss.menmeet.DTO.post.PostContentDTO;
 import mentoss.menmeet.DTO.post.PostIndexDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PostServiceImpl implements PostService {
 
 	@Override

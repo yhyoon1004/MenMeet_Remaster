@@ -1,6 +1,7 @@
 package mentoss.menmeet.filter;
 
 import lombok.extern.slf4j.Slf4j;
+import mentoss.menmeet.session.MenMeetSessionCont;
 import org.springframework.util.PatternMatchUtils;
 
 import javax.servlet.*;
@@ -12,7 +13,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginFilter implements Filter {
 	//로그인 요구에서 제외할 URI
-	private static final String[] checkRequestList = {"/post**"};
+	private static final String[] checkRequestList = {"/myPage**"};
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -25,7 +26,7 @@ public class LoginFilter implements Filter {
 			if (isLoginCheckPath(requestURI)) {//화이트리스트의 uri와 다른 uri면
 				log.info("로그인 인증 필터 동작{}", requestURI);
 				HttpSession session = httpServletRequest.getSession(false);
-				if (session == null || session.getAttribute("MenMeetSession") == null) {
+				if (session == null || session.getAttribute(MenMeetSessionCont.LOGIN_SESSION) == null) {
 
 					log.info("미인증 사용자, 요청 거부  {}", requestURI);
 					httpServletResponse.setContentType("text/html; charset=UTF-8");
