@@ -1,7 +1,7 @@
 package mentoss.menmeet.service;
 
-import mentoss.menmeet.DTO.post.PostContentDTO;
-import mentoss.menmeet.DTO.post.PostIndexDTO;
+import mentoss.menmeet.DTO.post.*;
+import mentoss.menmeet.domain.MentoringPost;
 
 import java.util.List;
 
@@ -37,4 +37,13 @@ public interface PostService {
 	 **********게시물 하나 보기**********
 	 */
 	PostContentDTO showPostContent(int postNum);
+
+	/*
+	 **********게시물 등록하기**********
+	 */
+	PostCreateStateDTO createUserPost(MentoringPost mentoringPost);
+
+	PostUpdateStateDTO updateUserPost(PostUpdateFormDTO postUpdateFormDTO);
+
+	PostDeleteStateDTO deleteUserPost(int postNum, String userId);
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class LogInController {
@@ -29,8 +28,8 @@ public class LogInController {
 	@PostMapping(value = "/logout")
 	public LogoutStateDTO logout() {
 		HttpSession httpSession = request.getSession();
-		if(httpSession!=null)
-		httpSession.invalidate();
+		if (httpSession != null)
+			httpSession.invalidate();
 		return new LogoutStateDTO(true);
 	}
 }

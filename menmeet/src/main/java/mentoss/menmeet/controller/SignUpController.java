@@ -8,33 +8,28 @@ import mentoss.menmeet.domain.User;
 import mentoss.menmeet.service.SignUpService;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
+
+@RequestMapping("/signup")
 @RestController
 @RequiredArgsConstructor
 public class SignUpController {
 	private final SignUpService signUpService;
 
 	//회원가입시 Id 중복 확인
-	@GetMapping("/signup/checkDuplicateId")
+	@GetMapping("/checkDuplicateId")
 	public SignUpCheckIdDTO checkUserId(@RequestParam String userId) {
 		return signUpService.checkId(userId);
 	}
 
 	//회원가입시 Name 중복 확인
-	@GetMapping("/signup/checkDuplicateName")
+	@GetMapping("/checkDuplicateName")
 	public SignUpCheckNameDTO checkUserName(@RequestParam String userName) {
 		return signUpService.checkName(userName);
 	}
 
-	//회원 가입 처리
-	//form 처리
-	@PostMapping(value = "/signup", consumes = "application/x-www-form-urlencoded")
-	public SignUpConfirmDTO signUpHandlerFormRequest(User targetUser) {
-		return signUpService.signUp(targetUser);
-	}
-//	json 처리
-	@PostMapping(value = "/signup", consumes = "application/json")
+	//회원 가입 처리 json
+	@PostMapping(consumes = "application/json")
 	public SignUpConfirmDTO signUpHandlerJsonRequest(@RequestBody User targetUser) {
 		return signUpService.signUp(targetUser);
 	}
