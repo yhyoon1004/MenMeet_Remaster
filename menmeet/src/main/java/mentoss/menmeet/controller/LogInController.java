@@ -1,13 +1,10 @@
 package mentoss.menmeet.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.login.LoginFormDTO;
 import mentoss.menmeet.DTO.login.LoginStateDTO;
 import mentoss.menmeet.DTO.login.LogoutStateDTO;
-import mentoss.menmeet.domain.User;
 import mentoss.menmeet.service.LoginService;
-import mentoss.menmeet.session.MenMeetSessionCont;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

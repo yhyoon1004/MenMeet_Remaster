@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.signup.SignUpCheckIdDTO;
 import mentoss.menmeet.DTO.signup.SignUpCheckNameDTO;
 import mentoss.menmeet.DTO.signup.SignUpConfirmDTO;
-import mentoss.menmeet.domain.User;
+import mentoss.menmeet.entity.User;
 import mentoss.menmeet.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

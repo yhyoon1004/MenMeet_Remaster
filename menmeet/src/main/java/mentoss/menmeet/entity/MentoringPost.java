@@ -1,4 +1,4 @@
-package mentoss.menmeet.domain;
+package mentoss.menmeet.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +19,7 @@ public class MentoringPost {
 	private String writerId;
 	@Column(name = "writer_name",length = 10)
 	private String writerName;
+	@Column
 	private Integer category;
 	@Column(name = "mentoring_target")
 	private Integer mentoringTarget;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.login.LoginFormDTO;
 import mentoss.menmeet.DTO.login.LoginStateDTO;
-import mentoss.menmeet.domain.User;
+import mentoss.menmeet.entity.User;
 import mentoss.menmeet.repository.UserRepository;
 import mentoss.menmeet.session.MenMeetSessionCont;
 import org.springframework.stereotype.Service;

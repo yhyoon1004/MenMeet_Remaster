@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mentoss.menmeet.DTO.signup.SignUpCheckIdDTO;
 import mentoss.menmeet.DTO.signup.SignUpCheckNameDTO;
 import mentoss.menmeet.DTO.signup.SignUpConfirmDTO;
-import mentoss.menmeet.domain.User;
+import mentoss.menmeet.entity.User;
 import mentoss.menmeet.service.SignUpService;
 import org.springframework.web.bind.annotation.*;
 

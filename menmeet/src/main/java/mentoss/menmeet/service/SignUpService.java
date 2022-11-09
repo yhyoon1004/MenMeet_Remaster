@@ -3,7 +3,7 @@ package mentoss.menmeet.service;
 import mentoss.menmeet.DTO.signup.SignUpCheckIdDTO;
 import mentoss.menmeet.DTO.signup.SignUpCheckNameDTO;
 import mentoss.menmeet.DTO.signup.SignUpConfirmDTO;
-import mentoss.menmeet.domain.User;
+import mentoss.menmeet.entity.User;
 
 import java.util.List;
 

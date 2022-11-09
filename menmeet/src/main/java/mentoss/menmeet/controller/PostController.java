@@ -1,10 +1,10 @@
 package mentoss.menmeet.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.post.*;
-import mentoss.menmeet.domain.MentoringPost;
+import mentoss.menmeet.entity.MentoringPost;
 import mentoss.menmeet.service.PostService;
+import mentoss.menmeet.service.TestService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class PostController {
 
 	private final PostService postService;
-
+	private final TestService testService;
 	/*
 	 **********전체 게시글 목록 조회**********
 	 */
@@ -69,5 +69,14 @@ public class PostController {
 	@PostMapping(value = "/deletePost",consumes = "application/json")
 	public PostDeleteStateDTO deletePost(@RequestBody int postNum,@RequestBody String userId){
 		return postService.deleteUserPost(postNum, userId);
+	}
+
+
+	//////////////////////////
+//	@PostMapping(value = "/test",consumes = "application/json")
+	@GetMapping(value = "testJpa")
+	public void  enrollEntity(){
+		testService.enroll();
+		System.out.println("제이피에이 동작 완료");
 	}
 }

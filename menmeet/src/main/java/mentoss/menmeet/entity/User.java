@@ -1,4 +1,4 @@
-package mentoss.menmeet.domain;
+package mentoss.menmeet.entity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package mentoss.menmeet.repository;
 
 import mentoss.menmeet.DTO.post.PostIndexDTO;
-import mentoss.menmeet.domain.MentoringPost;
+import mentoss.menmeet.entity.MentoringPost;
 
 import java.util.List;
 import java.util.Optional;

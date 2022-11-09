@@ -1,6 +1,6 @@
 package mentoss.menmeet.repository;
 
-import mentoss.menmeet.domain.User;
+import mentoss.menmeet.entity.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

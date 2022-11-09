@@ -1,7 +1,7 @@
 package mentoss.menmeet.service;
 
 import mentoss.menmeet.DTO.post.*;
-import mentoss.menmeet.domain.MentoringPost;
+import mentoss.menmeet.entity.MentoringPost;
 
 import java.util.List;
 

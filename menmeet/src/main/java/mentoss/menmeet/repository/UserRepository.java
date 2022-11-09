@@ -1,6 +1,6 @@
 package mentoss.menmeet.repository;
 
-import mentoss.menmeet.domain.User;
+import mentoss.menmeet.entity.User;
 
 import java.util.List;
 import java.util.Optional;
