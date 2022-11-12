@@ -12,26 +12,15 @@ reference Note
  */
 public interface PostService {
 	/*
-	 *****전체 멘토링 게시물 조회**********
-	 * pageNum = 요청할 페이지
+	 **********멘토링 게시물 목록 조회**********
 	 */
-	List<PostIndexDTO> showAllPostList(int pageNum);
+	List<PostIndexDTO> showPostIndexList(Integer category, Integer isMentor, Integer pageNum);
 
 	/*
-	 **********카테고리별 게시물 조회**********
-	 * category = 멘토링 카테고리
-	 * mentor = 0-멘티/1-멘토
-	 * pageNum = 요청할 페이지
+	 **********게시물 검색 목록 조회**********
 	 */
-	List<PostIndexDTO> showCategoryPostList(int category, int mentor, int pageNum);
+	List<PostIndexDTO> showSearchedPostIndexList(Integer category, Integer isMentor, Integer pageNum,String keyword);
 
-	/*
-	 **********키워드 검색 게시물 조회**********
-	 * keyword = 검색할 키워드문자
-	 * mentor = 0-멘티/1-멘토
-	 * pageNum = 요청할 페이지
-	 */
-	List<PostIndexDTO> showSearchedPostList(String keyword, int pageNum);
 
 	/*
 	 **********게시물 하나 보기**********

@@ -10,13 +10,15 @@ public interface MentoringPostRepository {
 	//게시물 저장
 	void savePost(MentoringPost post);
 
-	//게시물 번호가 높은 순서로 게시물 목차 여러개 조회
-	List<PostIndexDTO> findTotalPostsOrderByPostNum(Integer pageNum);
+	//게시물 삭제
+	void deletePost(Integer postNum);
 
-	//키워드로 게시물 목차 여러개 조회
-	List<MentoringPost> findPostsByKeyword(String keyword, Integer pageNum);
+	//게시물 수정
+	Boolean updatePost(MentoringPost post);
 
-	//게시물 번호로 조회 단일 게시물내용 조회
-	Optional<MentoringPost> findPostByPostNum(Integer postNum, Integer pageNum);
+	//단일 게시물 내용 조회
+	Optional<MentoringPost> findPostByPostNum(Integer postNum);
 
+	//게시물 목록 조회
+	List<PostIndexDTO> findPosts(Integer category, Integer isMentor, String keyword, Integer pageNum);
 }
