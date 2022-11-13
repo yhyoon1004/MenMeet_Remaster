@@ -20,5 +20,5 @@ public interface MentoringPostRepository {
 	Optional<MentoringPost> findPostByPostNum(Integer postNum);
 
 	//게시물 목록 조회
-	List<PostIndexDTO> findPosts(Integer category, Integer isMentor, String keyword, Integer pageNum);
+	List<MentoringPost> findPosts(Integer category, Integer isMentor, String keyword, Integer pageNum);
 }

@@ -14,25 +14,19 @@ public interface PostService {
 	/*
 	 **********멘토링 게시물 목록 조회**********
 	 */
-	List<PostIndexDTO> showPostIndexList(Integer category, Integer isMentor, Integer pageNum);
-
-	/*
-	 **********게시물 검색 목록 조회**********
-	 */
-	List<PostIndexDTO> showSearchedPostIndexList(Integer category, Integer isMentor, Integer pageNum,String keyword);
-
+	List<PostIndexDTO> showPostIndexList(Integer category, Integer isMentor,String keyword, Integer pageNum);
 
 	/*
 	 **********게시물 하나 보기**********
 	 */
-	PostContentDTO showPostContent(int postNum);
+	PostContentDTO showPostContent(Integer postNum);
 
 	/*
 	 **********게시물 등록하기**********
 	 */
 	PostCreateStateDTO createUserPost(MentoringPost mentoringPost);
 
-	PostUpdateStateDTO updateUserPost(PostUpdateFormDTO postUpdateFormDTO);
+	PostUpdateStateDTO updateUserPost(MentoringPost postUpdateFormDTO);
 
-	PostDeleteStateDTO deleteUserPost(int postNum, String userId);
+	PostDeleteStateDTO deleteUserPost(Integer postNum);
 }

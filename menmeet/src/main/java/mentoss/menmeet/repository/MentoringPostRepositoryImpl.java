@@ -2,10 +2,12 @@ package mentoss.menmeet.repository;
 
 import mentoss.menmeet.DTO.post.PostIndexDTO;
 import mentoss.menmeet.entity.MentoringPost;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +31,10 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 	@Override
 	public Boolean updatePost(MentoringPost post) {
 		Optional<MentoringPost> mentoringPost = Optional.ofNullable(entityManager.find(MentoringPost.class, post));
-		if(!mentoringPost.isPresent()) {
-			System.out.println("failed to update Post. cause by this post is not present"+post.getPostNum());
+		if (!mentoringPost.isPresent()) {
+			System.out.println("failed to update Post. cause by this post is not present" + post.getPostNum());
 			return false;
-		}else {
+		} else {
 			entityManager.persist(post);
 			return true;
 		}
@@ -45,7 +47,14 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 	}
 
 	@Override
-	public List<PostIndexDTO> findPosts(Integer category, Integer isMentor, String keyword, Integer pageNum) {
-		return null;
+	public List<MentoringPost> findPosts(Integer category, Integer isMentor, String keyword, Integer pageNum) {
+		StoredProcedureQuery postListProcedure = entityManager.createNamedStoredProcedureQuery("postListProcedure");
+		StoredProcedureQuery storedProcedureQuery = postListProcedure
+				.setParameter("_category", category)
+				.setParameter("_isMentor", isMentor)
+				.setParameter("_keyword", keyword)
+				.setParameter("_pageNum", pageNum);
+		List<MentoringPost> resultList = storedProcedureQuery.getResultList();
+		return resultList;
 	}
 }

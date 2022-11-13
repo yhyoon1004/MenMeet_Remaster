@@ -11,7 +11,7 @@ public class PostIndexDTO {
 	private String postTitle;
 	private Integer category;
 	private Integer postIsMentor;
-	private String postWriter;
+	private String postWriterName;
 	private LocalDateTime mentoringTime;
 	private Boolean mentoringEnable;
 	private LocalDateTime postWriteTime;
