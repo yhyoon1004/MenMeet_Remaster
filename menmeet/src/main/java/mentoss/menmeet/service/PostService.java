@@ -2,6 +2,7 @@ package mentoss.menmeet.service;
 
 import mentoss.menmeet.DTO.post.*;
 import mentoss.menmeet.entity.MentoringPost;
+import mentoss.menmeet.entity.PostCount;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public interface PostService {
 	 */
 	List<PostIndexDTO> showPostIndexList(Integer category, Integer isMentor,String keyword, Integer pageNum);
 
+	PostCount showPostCount(Integer category, Integer isMentor,String keyword);
 	/*
 	 **********게시물 하나 보기**********
 	 */

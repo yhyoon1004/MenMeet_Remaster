@@ -21,4 +21,6 @@ public interface MentoringPostRepository {
 
 	//게시물 목록 조회
 	List<MentoringPost> findPosts(Integer category, Integer isMentor, String keyword, Integer pageNum);
+
+	Integer getPostCount(Integer category, Integer isMentor, String keyword);
 }

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import mentoss.menmeet.DTO.post.*;
 import mentoss.menmeet.entity.MentoringPost;
+import mentoss.menmeet.entity.PostCount;
 import mentoss.menmeet.entity.User;
 import mentoss.menmeet.repository.MentoringPostRepository;
 import mentoss.menmeet.session.MenMeetSessionCont;
@@ -49,6 +50,13 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
+	public PostCount showPostCount(Integer category, Integer isMentor, String keyword) {
+		 PostCount postCount = new PostCount();
+		 postCount.setTotal_count(mentoringPostRepository.getPostCount(category,isMentor,keyword));
+		 return postCount;
+	}
+
+	@Override
 	public PostContentDTO showPostContent(Integer postNum) {
 		MentoringPost findPost = mentoringPostRepository.findPostByPostNum(postNum).get();
 		PostContentDTO resultDTO = PostContentDTO.builder()
@@ -81,7 +89,28 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public PostUpdateStateDTO updateUserPost(MentoringPost mentoringPost) {
-		return new PostUpdateStateDTO(mentoringPostRepository.updatePost(mentoringPost));
+		System.out.println(
+				 "["+mentoringPost.getPostNum()+"]\n"
+				+"["+mentoringPost.getTitle()+"]\n"
+				+"["+mentoringPost.getWriterId()+"]\n"
+				+"["+mentoringPost.getContent()+"]\n"
+				+"["+mentoringPost.getMentoringTime()+"]");
+
+		PostUpdateStateDTO postUpdateStateDTO;
+
+		Optional<MentoringPost> postByPostNum = mentoringPostRepository.findPostByPostNum(mentoringPost.getPostNum());
+		if (!postByPostNum.isPresent()){
+			return new PostUpdateStateDTO(false);
+		}
+		User user = (User) httpSession.getAttribute(MenMeetSessionCont.LOGIN_SESSION);
+
+		if(mentoringPost.getWriterId().equals(user.getUserId())){
+			postUpdateStateDTO =
+					new PostUpdateStateDTO(mentoringPostRepository.updatePost(mentoringPost));
+		}else {
+			postUpdateStateDTO = new PostUpdateStateDTO(false);
+		}
+		return postUpdateStateDTO;
 	}
 
 	@Override

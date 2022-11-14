@@ -3,7 +3,6 @@ package mentoss.menmeet.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,6 +17,15 @@ import java.time.LocalDateTime;
 				@StoredProcedureParameter(name = "_isMentor",type = Integer.class,mode = ParameterMode.IN),
 				@StoredProcedureParameter(name = "_keyword",type = String.class,mode = ParameterMode.IN),
 				@StoredProcedureParameter(name = "_pageNum",type = Integer.class,mode = ParameterMode.IN)
+		})
+@NamedStoredProcedureQuery(
+		name = "postCountProcedure",
+		resultClasses = PostCount.class,
+		procedureName = "showPostCount",
+		parameters = {
+				@StoredProcedureParameter(name = "_category",type = Integer.class,mode = ParameterMode.IN),
+				@StoredProcedureParameter(name = "_isMentor",type = Integer.class,mode = ParameterMode.IN),
+				@StoredProcedureParameter(name = "_keyword",type = String.class,mode = ParameterMode.IN)
 		})
 @Getter
 @Setter

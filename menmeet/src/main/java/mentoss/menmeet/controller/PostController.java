@@ -1,21 +1,23 @@
 package mentoss.menmeet.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.post.*;
 import mentoss.menmeet.entity.MentoringPost;
+import mentoss.menmeet.entity.PostCount;
 import mentoss.menmeet.repository.MentoringPostRepository;
 import mentoss.menmeet.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequestMapping("/mentoringPost")
 @RestController
 @RequiredArgsConstructor
 public class PostController {
 
 	private final PostService postService;
-
 	/*
 	 **********게시글 목록 조회**********
 	 * category = 0 전체
@@ -25,6 +27,11 @@ public class PostController {
 	@PostMapping(value = "/", consumes = "application/json")
 	public List<PostIndexDTO> postList(@RequestBody PostSearchDTO postSearchDTO) {
 		return postService.showPostIndexList(postSearchDTO.getCategory(), postSearchDTO.getMentor(), postSearchDTO.getKeyword(), postSearchDTO.getPageNum());
+	}
+
+	@PostMapping(value = "/postCount", consumes = "application/json")
+	public PostCount postCount(@RequestBody PostSearchDTO postSearchDTO) {
+		return postService.showPostCount(postSearchDTO.getCategory(), postSearchDTO.getMentor(), postSearchDTO.getKeyword());
 	}
 
 	/*
@@ -58,4 +65,5 @@ public class PostController {
 	public PostDeleteStateDTO deletePost(@PathVariable int postNum) {
 		return postService.deleteUserPost(postNum);
 	}
+
 }
