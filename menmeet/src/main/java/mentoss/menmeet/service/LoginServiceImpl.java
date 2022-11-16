@@ -44,6 +44,7 @@ public class LoginServiceImpl implements LoginService {
 				log.info("사용자 로그인 정보 : ID : [{}] 닉네임 : [{}]", menmeetSession.getUserId(), menmeetSession.getUserName());
 
 				lsDTO.setIsLoginConfirmed(true);//같으면 로그인여부 DTO에 true로 설정
+				lsDTO.setUserId(menmeetSession.getUserId());
 				lsDTO.setUserName(menmeetSession.getUserName());
 
 			} else {//비밀 번호가 일치하지 않으면 실패 리턴

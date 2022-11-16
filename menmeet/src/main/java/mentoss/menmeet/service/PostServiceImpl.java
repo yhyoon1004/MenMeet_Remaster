@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostIndexDTO> showPostIndexList(@Nullable Integer category, @Nullable Integer isMentor,@Nullable String keyword, @Nullable Integer pageNum) {
+	public List<PostIndexDTO> showPostIndexList( Integer category,  Integer isMentor, String keyword, Integer pageNum) {
 		List<MentoringPost> repositoryPosts = mentoringPostRepository.findPosts(category, isMentor, keyword, pageNum);
 		return dtoListMapper(repositoryPosts);
 	}
@@ -89,22 +89,17 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public PostUpdateStateDTO updateUserPost(MentoringPost mentoringPost) {
-		System.out.println(
-				 "["+mentoringPost.getPostNum()+"]\n"
-				+"["+mentoringPost.getTitle()+"]\n"
-				+"["+mentoringPost.getWriterId()+"]\n"
-				+"["+mentoringPost.getContent()+"]\n"
-				+"["+mentoringPost.getMentoringTime()+"]");
-
 		PostUpdateStateDTO postUpdateStateDTO;
-
+		//게시물 번호로 해당 게시물 조회
 		Optional<MentoringPost> postByPostNum = mentoringPostRepository.findPostByPostNum(mentoringPost.getPostNum());
-		if (!postByPostNum.isPresent()){
+
+		if (!postByPostNum.isPresent()){//해당 게시물 번호가 존재하지 않을 때 서비스 실패 반환
 			return new PostUpdateStateDTO(false);
 		}
-		User user = (User) httpSession.getAttribute(MenMeetSessionCont.LOGIN_SESSION);
+		MentoringPost targetPost = postByPostNum.get();
+		User user = (User) httpSession.getAttribute(MenMeetSessionCont.LOGIN_SESSION);//세션에 해당사용자 정보를 받아옴
 
-		if(mentoringPost.getWriterId().equals(user.getUserId())){
+		if(targetPost.getWriterId().equals(user.getUserId())){//게시물의 작성자 ID와 요청한 사용자 ID를 비교
 			postUpdateStateDTO =
 					new PostUpdateStateDTO(mentoringPostRepository.updatePost(mentoringPost));
 		}else {
