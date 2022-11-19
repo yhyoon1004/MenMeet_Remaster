@@ -2,6 +2,7 @@ package mentoss.menmeet.service;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.post.*;
 import mentoss.menmeet.entity.MentoringPost;
 import mentoss.menmeet.entity.PostCount;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -40,12 +42,14 @@ public class PostServiceImpl implements PostService {
 			piDTO.setPostWriteTime(mentoringPost.getPostingTime());
 			piList.add(piDTO);
 		}
+		log.info("called : PostServiceImpl.dtoListMapper");
 		return piList;
 	}
 
 	@Override
 	public List<PostIndexDTO> showPostIndexList( Integer category,  Integer isMentor, String keyword, Integer pageNum) {
 		List<MentoringPost> repositoryPosts = mentoringPostRepository.findPosts(category, isMentor, keyword, pageNum);
+		log.info("called : PostServiceImpl.showPostIndexList");
 		return dtoListMapper(repositoryPosts);
 	}
 
@@ -53,6 +57,7 @@ public class PostServiceImpl implements PostService {
 	public PostCount showPostCount(Integer category, Integer isMentor, String keyword) {
 		 PostCount postCount = new PostCount();
 		 postCount.setTotal_count(mentoringPostRepository.getPostCount(category,isMentor,keyword));
+		log.info("called : PostServiceImpl.showPostCount");
 		 return postCount;
 	}
 
@@ -70,6 +75,7 @@ public class PostServiceImpl implements PostService {
 				.mentoringTime(findPost.getMentoringTime())
 				.postWriteTime(findPost.getPostingTime())
 				.build();
+		log.info("called : PostServiceImpl.showPostContent");
 		return resultDTO;
 	}
 
@@ -83,7 +89,7 @@ public class PostServiceImpl implements PostService {
 		else
 			postCreateStateDTO = new PostCreateStateDTO(false);
 
-
+		log.info("called : PostServiceImpl.createUserPost");
 		return postCreateStateDTO;
 	}
 
@@ -94,6 +100,7 @@ public class PostServiceImpl implements PostService {
 		Optional<MentoringPost> postByPostNum = mentoringPostRepository.findPostByPostNum(mentoringPost.getPostNum());
 
 		if (!postByPostNum.isPresent()){//해당 게시물 번호가 존재하지 않을 때 서비스 실패 반환
+			log.info("called : PostServiceImpl.");
 			return new PostUpdateStateDTO(false);
 		}
 		MentoringPost targetPost = postByPostNum.get();
@@ -105,6 +112,7 @@ public class PostServiceImpl implements PostService {
 		}else {
 			postUpdateStateDTO = new PostUpdateStateDTO(false);
 		}
+		log.info("called : PostServiceImpl.updateUserPost");
 		return postUpdateStateDTO;
 	}
 
@@ -126,6 +134,10 @@ public class PostServiceImpl implements PostService {
 		}else {
 			postDeleteStateDTO = new PostDeleteStateDTO(false);
 		}
+		log.info("called : PostServiceImpl.deleteUserPost");
 		return postDeleteStateDTO;
 	}
+
+//	public Reservation
+
 }

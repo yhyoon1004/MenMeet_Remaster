@@ -14,12 +14,14 @@ import java.io.IOException;
 public class LoginFilter implements Filter {
 	//로그인 요구에서 제외할 URI
 	private static final String[] checkRequestList = {
-			"/myPage**",
+	};
+	/*
+				"/myPage**",
 			"/mentoringPost/createPost**",
 			"/mentoringPost/updatePost**",
 			"/mentoringPost/deletePost**",
 			"/mentoringPost/showPost**"
-	};
+	 */
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

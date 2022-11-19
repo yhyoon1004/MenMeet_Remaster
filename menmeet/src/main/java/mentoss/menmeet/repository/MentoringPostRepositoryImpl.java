@@ -1,5 +1,6 @@
 package mentoss.menmeet.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.entity.PostCount;
 import mentoss.menmeet.entity.MentoringPost;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import javax.persistence.StoredProcedureQuery;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 @Transactional
 public class MentoringPostRepositoryImpl implements MentoringPostRepository {
@@ -21,12 +23,14 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 	@Override
 	public void savePost(MentoringPost post) {
 		entityManager.persist(post);
+		log.info("MentoringPostRepositoryImpl.savePost");
 	}
 
 	@Override
 	public void deletePost(Integer postNum) {
 		MentoringPost findPost = entityManager.find(MentoringPost.class, postNum);
 		entityManager.remove(findPost);
+		log.info("MentoringPostRepositoryImpl");
 	}
 
 	@Override
@@ -40,12 +44,14 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 			mentoringPost.setPostingTime(post.getPostingTime());
 			mentoringPost.setMentoringTime(post.getMentoringTime());
 			entityManager.flush();
+		log.info("MentoringPostRepositoryImpl.updatePost");
 			return true;
 	}
 
 	@Override
 	public Optional<MentoringPost> findPostByPostNum(Integer postNum) {
 		MentoringPost findPost = entityManager.find(MentoringPost.class, postNum);
+		log.info("MentoringPostRepositoryImpl.findPostByPostNum");
 		return Optional.ofNullable(findPost);
 	}
 
@@ -58,6 +64,7 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 				.setParameter("_keyword", keyword)
 				.setParameter("_pageNum", pageNum);
 		List<MentoringPost> resultList = storedProcedureQuery.getResultList();
+		log.info("called : MentoringPostRepositoryImpl.findPosts");
 		return resultList;
 	}
 
@@ -69,6 +76,7 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 				.setParameter("_isMentor", isMentor)
 				.setParameter("_keyword", keyword);
 		PostCount postCount =(PostCount)storedProcedureQuery.getSingleResult();
+		log.info("called : MentoringPostRepositoryImpl.getPostCount");
 		return postCount.getTotal_count();
 	}
 }

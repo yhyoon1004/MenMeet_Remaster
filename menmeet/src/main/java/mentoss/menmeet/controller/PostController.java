@@ -1,5 +1,6 @@
 package mentoss.menmeet.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.DTO.post.*;
@@ -7,6 +8,7 @@ import mentoss.menmeet.entity.MentoringPost;
 import mentoss.menmeet.entity.PostCount;
 import mentoss.menmeet.repository.MentoringPostRepository;
 import mentoss.menmeet.service.PostService;
+import mentoss.menmeet.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class PostController {
-
+	private final ReservationService reservationService;
 	private final PostService postService;
 	/*
 	 **********게시글 목록 조회**********
@@ -66,4 +68,9 @@ public class PostController {
 		return postService.deleteUserPost(postNum);
 	}
 
+	@GetMapping(value = "/test")
+	public String test(){
+		reservationService.enrollReservation();
+		return "OK";
+	}
 }
