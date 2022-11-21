@@ -13,13 +13,5 @@ import java.time.format.DateTimeFormatter;
 public class ReservationService {
 	private final ReservationRepository reservationRepository;
 	public void enrollReservation(){
-		Reservation reservation = new Reservation();
-		reservation.setMentoringPostNum(22);
-		reservation.setMentor("syh2516");
-		reservation.setCategory(3);
-		reservation.setMentoringTime(LocalDateTime.of(2022,11,15,23,10,12,000));
-		reservation.setReservationState(0);
-		reservation.setReservationAccept(0);
-		reservationRepository.saveReservation(reservation);
 	}
 }

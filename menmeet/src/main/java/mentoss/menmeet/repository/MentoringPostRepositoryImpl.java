@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,16 +37,16 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 	@Override
 	public Boolean updatePost(MentoringPost post) {
 		MentoringPost mentoringPost = entityManager.find(MentoringPost.class, post.getPostNum());
-			mentoringPost.setCategory(post.getCategory());
-			mentoringPost.setMentoringTarget(post.getMentoringTarget());
-			mentoringPost.setTitle(post.getTitle());
-			mentoringPost.setContent(post.getContent());
-			mentoringPost.setMentoringEnable(post.getMentoringEnable());
-			mentoringPost.setPostingTime(post.getPostingTime());
-			mentoringPost.setMentoringTime(post.getMentoringTime());
-			entityManager.flush();
+		mentoringPost.setCategory(post.getCategory());
+		mentoringPost.setMentoringTarget(post.getMentoringTarget());
+		mentoringPost.setTitle(post.getTitle());
+		mentoringPost.setContent(post.getContent());
+		mentoringPost.setMentoringEnable(post.getMentoringEnable());
+		mentoringPost.setPostingTime(post.getPostingTime());
+		mentoringPost.setMentoringTime(post.getMentoringTime());
+		entityManager.flush();
 		log.info("MentoringPostRepositoryImpl.updatePost");
-			return true;
+		return true;
 	}
 
 	@Override
@@ -75,8 +76,18 @@ public class MentoringPostRepositoryImpl implements MentoringPostRepository {
 				.setParameter("_category", category)
 				.setParameter("_isMentor", isMentor)
 				.setParameter("_keyword", keyword);
-		PostCount postCount =(PostCount)storedProcedureQuery.getSingleResult();
+		PostCount postCount = (PostCount) storedProcedureQuery.getSingleResult();
 		log.info("called : MentoringPostRepositoryImpl.getPostCount");
 		return postCount.getTotal_count();
+	}
+
+
+	//사용자가 작성한 게시물 조회
+	@Override
+	public List<MentoringPost> findPostsByOwnerId(String userId) {
+		List<MentoringPost> searchedList = entityManager
+				.createQuery("SELECT MP FROM MentoringPost MP WHERE MP.writerId=:userId", MentoringPost.class)
+				.setParameter("userId", userId).getResultList();
+		return searchedList;
 	}
 }

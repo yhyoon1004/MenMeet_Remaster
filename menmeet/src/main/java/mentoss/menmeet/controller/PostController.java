@@ -68,9 +68,11 @@ public class PostController {
 		return postService.deleteUserPost(postNum);
 	}
 
-	@GetMapping(value = "/test")
-	public String test(){
-		reservationService.enrollReservation();
-		return "OK";
-	}
+
+
+//	@GetMapping(value = "/test")
+//	public String test(){
+//		reservationService.enrollReservation();
+//		return "OK";
+//	}
 }

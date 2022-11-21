@@ -31,4 +31,6 @@ public interface PostService {
 	PostUpdateStateDTO updateUserPost(MentoringPost postUpdateFormDTO);
 
 	PostDeleteStateDTO deleteUserPost(Integer postNum);
+
+	List<MentoringPostIndex> showUserPosts(String userId);
 }

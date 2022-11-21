@@ -16,7 +16,7 @@ public class LoginFilter implements Filter {
 	private static final String[] checkRequestList = {
 	};
 	/*
-				"/myPage**",
+			"/myPage**",
 			"/mentoringPost/createPost**",
 			"/mentoringPost/updatePost**",
 			"/mentoringPost/deletePost**",

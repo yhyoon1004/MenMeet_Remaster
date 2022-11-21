@@ -43,7 +43,7 @@ public class MentoringPost {
 	@Column
 	private Integer category;
 	@Column(name = "mentoring_target")
-	private Integer mentoringTarget;
+	private Integer mentoringTarget;//0멘티/1멘토
 	@Column(length = 20)
 	private String title;
 	@Column(length = 300)
