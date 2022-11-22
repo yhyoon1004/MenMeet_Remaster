@@ -137,21 +137,4 @@ public class PostServiceImpl implements PostService {
 		log.info("called : PostServiceImpl.deleteUserPost");
 		return postDeleteStateDTO;
 	}
-
-	//사용자가 작성한 게시물 조회
-	@Override
-	public List<MentoringPostIndex> showUserPosts(String userId){
-		List<MentoringPost> postsByOwnerId = mentoringPostRepository.findPostsByOwnerId(userId);
-		List<MentoringPostIndex> resultList = new ArrayList<>();
-		MentoringPostIndex mentoringPostIndex;
-		for (MentoringPost post : postsByOwnerId) {
-			mentoringPostIndex =new MentoringPostIndex();
-			mentoringPostIndex.setPostNum(post.getPostNum());
-			mentoringPostIndex.setIsMentorPost(post.getMentoringTarget());
-			mentoringPostIndex.setTitle(post.getTitle());
-			mentoringPostIndex.setWriteTime(post.getPostingTime());
-			resultList.add(mentoringPostIndex);
-		}
-		return resultList;
-	}
 }
