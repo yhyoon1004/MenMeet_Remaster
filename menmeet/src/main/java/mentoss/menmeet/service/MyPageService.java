@@ -15,7 +15,7 @@ public interface MyPageService {
 	List<MyMentoringPostIndexDTO> showUserPosts(String userId);
 
 	//내가 신청한 멘토링 조회
-	List<ApplicatedMentoringDTO> showMentoringMyApplication(String userId);
+	List<AppliedMentoringDTO> showMentoringMyApplication(String userId);
 
 	//신청 받은 멘토링 조회
 	List<ReceivedMentoringDTO> showReceivedMentoring(String userId);
