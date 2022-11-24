@@ -1,10 +1,7 @@
 package mentoss.menmeet.controller;
 
 import lombok.RequiredArgsConstructor;
-import mentoss.menmeet.DTO.myPage.AppliedMentoringDTO;
-import mentoss.menmeet.DTO.myPage.ChangeStateDTO;
-import mentoss.menmeet.DTO.myPage.CheckPasswordStateDTO;
-import mentoss.menmeet.DTO.myPage.MyMentoringPostIndexDTO;
+import mentoss.menmeet.DTO.myPage.*;
 import mentoss.menmeet.service.MyPageService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,10 +30,22 @@ public class MyPageController {
 		return myPageService.showUserPosts(userId);
 	}
 	
-	//내가 신청한 멘토링 조회
+	//내가 신청한 멘토링 요청 조회
 	@GetMapping("/myAppliedMentoring/{userId}")
-	public List<AppliedMentoringDTO> showMyApplications(@PathVariable String userId){
+	public List<MentoringApplicationDTO> showMyApplications(@PathVariable String userId){
 		return myPageService.showMentoringMyApplication(userId);
+	}
+
+	//신청받은 멘토링 요청 조회
+	@GetMapping("/myReceivedMentoring/{userId}")
+	public List<MentoringApplicationDTO> showReceivedApplications(@PathVariable String userId){
+		return myPageService.showReceivedMentoring(userId);
+	}
+
+	//나의 예약 내역
+	@GetMapping("/myReservation/{userId}")
+	public List<MyReservationDTO> showMyReservation(@PathVariable String userId){
+		return myPageService.showMyReservation(userId);
 	}
 
 

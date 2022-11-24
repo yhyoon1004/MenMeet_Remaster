@@ -1,10 +1,7 @@
 package mentoss.menmeet.service;
 
 import lombok.RequiredArgsConstructor;
-import mentoss.menmeet.DTO.reservation.MentoringAcceptStateDTO;
-import mentoss.menmeet.DTO.reservation.MentoringRequestDTO;
-import mentoss.menmeet.DTO.reservation.ReservationApplicationFormDTO;
-import mentoss.menmeet.DTO.reservation.ReservationApplicationStateDTO;
+import mentoss.menmeet.DTO.reservation.*;
 import mentoss.menmeet.entity.ReservationSubscription;
 import mentoss.menmeet.entity.User;
 import mentoss.menmeet.repository.ReservationRepository;
@@ -21,7 +18,7 @@ public class ReservationService {
 	private final ReservationRepository reservationRepository;
 	private final UserRepository userRepository;
 	//멘토링 신청
-	public ReservationApplicationStateDTO requestReservation(@RequestBody ReservationApplicationFormDTO rafDTO){
+	public ReservationApplicationStateDTO requestReservation( ReservationApplicationFormDTO rafDTO){
 		ReservationSubscription rsEntity = new ReservationSubscription();
 		rsEntity.setPostNum(rafDTO.getPostNum());
 		rsEntity.setApplicant(rafDTO.getApplicant());
@@ -32,6 +29,16 @@ public class ReservationService {
 		rasDTO.setIsApplicated(true);
 		return rasDTO;
 	}
+
+	//멘토링 신청취소
+	public MentoringApplyCancelStateDTO cancelMentoringApply(Integer applyNum){
+		reservationRepository.deleteMentoringRequest(applyNum);
+		MentoringApplyCancelStateDTO macsDTO = new MentoringApplyCancelStateDTO();
+		macsDTO.setIsCanceled(true);
+		return macsDTO;
+	}
+
+
 	//멘토링 수락
 	public MentoringAcceptStateDTO acceptMentoring(MentoringRequestDTO mentoringRequestDTO){
 		MentoringAcceptStateDTO masDTO = new MentoringAcceptStateDTO();
@@ -50,4 +57,5 @@ public class ReservationService {
 	public void rejectMentoring(Integer mentoringRequestNum){
 		reservationRepository.rejectMentoring(mentoringRequestNum);
 	}
+
 }

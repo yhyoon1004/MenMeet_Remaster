@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class AppliedMentoringDTO {
+public class MentoringApplicationDTO {
 	private Integer subscriptNum;
 	private Integer postNum;
 	private Boolean isMentor;

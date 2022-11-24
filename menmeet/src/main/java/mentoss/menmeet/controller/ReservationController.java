@@ -20,8 +20,7 @@ public class ReservationController {
 	//멘토링 신청 취소
 	@DeleteMapping(value = "/mentoringCancel/{applicationNum}")
 	public MentoringApplyCancelStateDTO cancelMentoringApply(@PathVariable Integer applicationNum){
-		reservationService.
-		return  null;//미구현
+		return reservationService.cancelMentoringApply(applicationNum);
 	}
 
 	//멘토링 수락
@@ -31,8 +30,8 @@ public class ReservationController {
 	}
 
 	//멘토링 거절
-	@PostMapping(value = "/rejectMentoring",consumes = "application/json")
-	public MentoringRejectStateDTO rejectMentoringRequest(@RequestBody Integer subscriptionNum){
+	@GetMapping( "/rejectMentoring/{subscriptionNum}")
+	public MentoringRejectStateDTO rejectMentoringRequest(@PathVariable Integer subscriptionNum){
 			MentoringRejectStateDTO mrDTO = new MentoringRejectStateDTO();
 			reservationService.rejectMentoring(subscriptionNum);
 			mrDTO.setIsRejected(true);
