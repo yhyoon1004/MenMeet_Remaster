@@ -5,8 +5,10 @@ import mentoss.menmeet.DTO.myPage.*;
 import mentoss.menmeet.entity.MentoringPost;
 import mentoss.menmeet.entity.Reservation;
 import mentoss.menmeet.entity.ReservationSubscription;
+import mentoss.menmeet.entity.User;
 import mentoss.menmeet.repository.MentoringPostRepository;
 import mentoss.menmeet.repository.ReservationRepository;
+import mentoss.menmeet.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,33 +17,63 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MyPageServiceImpl implements MyPageService{
+public class MyPageServiceImpl implements MyPageService {
+
+	private final UserRepository userRepository;
 	private final MentoringPostRepository mentoringPostRepository;
 	private final ReservationRepository reservationRepository;
 
 	@Override
-	public CheckPasswordStateDTO checkPassword(String userPassword) {
-		return null;
+	public CheckPasswordStateDTO checkPassword(CheckUserPwdFormDTO checkUserPwdFormDTO) {
+		CheckPasswordStateDTO cpsDTO = new CheckPasswordStateDTO();
+		Optional<User> userById = userRepository.findUserById(checkUserPwdFormDTO.getUserId());
+		if (userById.isPresent()) {
+			User user = userById.get();
+			if (user.getUserPassword().equals(checkUserPwdFormDTO.getUserPassword())) {
+				cpsDTO.setIsRightPassword(true);
+			} else {
+				cpsDTO.setIsRightPassword(false);
+			}
+		} else {
+			cpsDTO.setIsRightPassword(false);
+		}
+		return cpsDTO;
 	}
 
 	@Override
-	public ChangeStateDTO changePassword(String userPassword) {
-		return null;
+	public ChangeStateDTO changePassword(ChangeUserPwdFormDTO changeUserPwdFormDTO) {
+		ChangeStateDTO changeStateDTO =new ChangeStateDTO();
+		userRepository.changeUserPassword(changeUserPwdFormDTO.getUserId(), changeUserPwdFormDTO.getUserPassword());
+		changeStateDTO.setIsChanged(true);
+		return changeStateDTO;
 	}
 
 	@Override
 	public UserWithdrawStateDTO withdrawUser(String userId, String userPassword) {
-		return null;
+		UserWithdrawStateDTO uwsDTO = new UserWithdrawStateDTO();
+		Optional<User> userById = userRepository.findUserById(userId);
+		if(userById.isPresent()){
+			User user = userById.get();
+			if (user.getUserPassword().equals(userPassword)){
+				userRepository.deleteUser(userId);
+				uwsDTO.setIsWithdrawn(true);
+			}else {
+				uwsDTO.setIsWithdrawn(false);
+			}
+		}else {
+			uwsDTO.setIsWithdrawn(false);
+		}
+		return uwsDTO;
 	}
 
 	//사용자가 작성한 게시물 조회
 	@Override
-	public List<MyMentoringPostIndexDTO> showUserPosts(String userId){
+	public List<MyMentoringPostIndexDTO> showUserPosts(String userId) {
 		List<MentoringPost> postsByOwnerId = mentoringPostRepository.findPostsByOwnerId(userId);
 		List<MyMentoringPostIndexDTO> resultList = new ArrayList<>();
 		MyMentoringPostIndexDTO mentoringPostIndex;
 		for (MentoringPost post : postsByOwnerId) {
-			mentoringPostIndex =new MyMentoringPostIndexDTO();
+			mentoringPostIndex = new MyMentoringPostIndexDTO();
 			mentoringPostIndex.setPostNum(post.getPostNum());
 			mentoringPostIndex.setIsMentorPost(post.getMentoringTarget());
 			mentoringPostIndex.setTitle(post.getTitle());
@@ -65,7 +97,7 @@ public class MyPageServiceImpl implements MyPageService{
 			maDTO.setApplyTime(rs.getRequestTime());
 			MentoringPost postByPostNum = mentoringPostRepository.findPostByPostNum(rs.getPostNum()).get();
 			maDTO.setPostTitle(postByPostNum.getTitle());
-			maDTO.setIsMentor(postByPostNum.getMentoringTarget()==0?false:true);
+			maDTO.setIsMentor(postByPostNum.getMentoringTarget() == 0 ? false : true);
 			targetMyList.add(maDTO);
 		}
 
@@ -79,7 +111,7 @@ public class MyPageServiceImpl implements MyPageService{
 		MentoringApplicationDTO maDTO;
 
 		List<MentoringPost> postsByOwnerId = mentoringPostRepository.findPostsByOwnerId(userId);
-		List<ReservationSubscription> myRSList =new ArrayList<>();
+		List<ReservationSubscription> myRSList = new ArrayList<>();
 
 		for (MentoringPost post : postsByOwnerId) {
 			myRSList
@@ -93,7 +125,7 @@ public class MyPageServiceImpl implements MyPageService{
 			maDTO.setApplyTime(rs.getRequestTime());
 			MentoringPost postByPostNum = mentoringPostRepository.findPostByPostNum(rs.getPostNum()).get();
 			maDTO.setPostTitle(postByPostNum.getTitle());
-			maDTO.setIsMentor(postByPostNum.getMentoringTarget()==0?false:true);
+			maDTO.setIsMentor(postByPostNum.getMentoringTarget() == 0 ? false : true);
 			resultList.add(maDTO);
 		}
 
@@ -102,7 +134,7 @@ public class MyPageServiceImpl implements MyPageService{
 
 	//나의 멘토링 정보확인
 	@Override
-	public List<MyReservationDTO> showMyReservation(String userId){
+	public List<MyReservationDTO> showMyReservation(String userId) {
 		List<Reservation> reservationList = reservationRepository.searchReservationByUserId(userId);
 		List<MyReservationDTO> resultList = new ArrayList<>();
 		MyReservationDTO mrDTO;

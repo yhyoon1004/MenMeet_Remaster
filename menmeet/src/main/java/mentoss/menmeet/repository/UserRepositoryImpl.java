@@ -3,6 +3,7 @@ package mentoss.menmeet.repository;
 import lombok.extern.slf4j.Slf4j;
 import mentoss.menmeet.entity.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
+@Transactional
 public class UserRepositoryImpl implements UserRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -48,5 +50,13 @@ public class UserRepositoryImpl implements UserRepository {
 		User findDeleteUser = entityManager.find(User.class, deleteUser);
 		entityManager.remove(findDeleteUser);
 		log.info("called : UserRepositoryImpl.deleteUser");
+	}
+
+	@Override
+	public void changeUserPassword(String userId, String changePassword) {
+		User changeTargetUser = entityManager.find(User.class, userId);
+		changeTargetUser.setUserPassword(changePassword);
+		entityManager.flush();
+		log.info("called : UserRepositoryImpl.changeUserPassword");
 	}
 }

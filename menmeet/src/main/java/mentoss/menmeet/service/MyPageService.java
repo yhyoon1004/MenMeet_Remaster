@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface MyPageService {
 	//비밀번호 확인
-	CheckPasswordStateDTO checkPassword(String userPassword);
+	CheckPasswordStateDTO checkPassword(CheckUserPwdFormDTO userInfo);
 	//비밀번호 변경
-	ChangeStateDTO changePassword(String userPassword);
+	ChangeStateDTO changePassword(ChangeUserPwdFormDTO userInfo);
 
 	UserWithdrawStateDTO withdrawUser(String userId, String userPassword);
 

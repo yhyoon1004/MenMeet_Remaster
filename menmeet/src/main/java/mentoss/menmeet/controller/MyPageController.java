@@ -13,16 +13,23 @@ import java.util.List;
 public class MyPageController {
 	private final MyPageService myPageService;
 
+	//비밀번호 확인
 	@PostMapping(value = "/checkPassword",consumes = "application/json")
-	public CheckPasswordStateDTO checkPassword(@RequestBody String userPassword){
-		return myPageService.checkPassword(userPassword);//미구현
+	public CheckPasswordStateDTO checkPassword(@RequestBody CheckUserPwdFormDTO checkUserPwdFormDTO ){
+		return myPageService.checkPassword(checkUserPwdFormDTO);
 	}
 
+	//비밀번호 변경
 	@PostMapping(value = "/changePassword", consumes = "application/json")
-	public ChangeStateDTO changePassword(@RequestBody String userPassword){
-		return myPageService.changePassword(userPassword);//미구현
+	public ChangeStateDTO changePassword(@RequestBody ChangeUserPwdFormDTO changeUserPwdFormDTO){
+		return myPageService.changePassword(changeUserPwdFormDTO);
 	}
 
+	//회원탈퇴
+	@PostMapping(value = "/withdrawUser", consumes = "application/json")
+	public UserWithdrawStateDTO withdrawUser(@RequestBody WithdrawUserFormDTO withdrawUserFormDTO){
+		return myPageService.withdrawUser(withdrawUserFormDTO.getUserId(), withdrawUserFormDTO.getUserPassword());
+	}
 
 	//내가 작성한 게시물 조회
 	@GetMapping("/myPosts/{userId}")

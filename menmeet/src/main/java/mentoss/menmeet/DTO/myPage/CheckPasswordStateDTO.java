@@ -1,8 +1,12 @@
 package mentoss.menmeet.DTO.myPage;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class CheckPasswordStateDTO {
 	private Boolean isRightPassword;
 }
